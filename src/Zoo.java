@@ -1,44 +1,39 @@
 import animals.*;
 import food.*;
 import humans.Worker;
+import utils.Enclosure;
+import utils.EnclosureSize;
+import utils.WrongFoodException;
 
 public class Zoo {
-    public static void main(String[] args) {
-        Animal wolf = new Wolf();
-        Animal horse = new Horse();
-        Animal amur = new Amur();
-        Animal duck = new Duck();
-        Animal Lynx = new Lynx();
-        Animal hamster = new Hamster();
+    public static void main(String[] args) throws WrongFoodException {
+        Carnivorous wolf = new Wolf(EnclosureSize.BIG);
+        Herbivore horse = new Horse(EnclosureSize.BIG);
+        Herbivore amur = new Amur();
+        Carnivorous duck = new Duck(EnclosureSize.MEDIUM);
+        Carnivorous lynx = new Lynx(EnclosureSize.BIG);
+        Herbivore hamster = new Hamster(EnclosureSize.SMALL);
 
         Food rabbit = new Rabbit();
         Food corn = new Corn();
         Food beef = new Beef();
         Food avena = new Avena();
-
         Worker worker = new Worker();
 
-        worker.feed(horse, beef);
-        worker.getVoice(horse);
+        Enclosure<Herbivore> herbivoreGroup = new Enclosure<>(EnclosureSize.SMALL);
+        Enclosure<Carnivorous> carnivorousGroup = new Enclosure<>(EnclosureSize.BIG);
 
-        worker.feed(wolf, rabbit);
-        worker.feed(wolf, rabbit);
-        worker.feed(wolf, rabbit);
-        worker.getVoice(wolf);
-        wolf.showSatiety();
+        herbivoreGroup.addAnimal(horse.getUniqueId(), horse, horse.getRightEnclosureSize());
+        herbivoreGroup.addAnimal(hamster.getUniqueId(), hamster, hamster.getRightEnclosureSize());
+        herbivoreGroup.addAnimal(amur.getUniqueId(), amur, amur.getRightEnclosureSize());
 
-        worker.feed(hamster, avena);
-        worker.getVoice(hamster);
+        carnivorousGroup.addAnimal(lynx.getUniqueId(), lynx, lynx.getRightEnclosureSize());
+        carnivorousGroup.addAnimal(duck.getUniqueId(), duck, duck.getRightEnclosureSize());
+        carnivorousGroup.addAnimal(wolf.getUniqueId(), wolf, wolf.getRightEnclosureSize());
 
-        worker.feed(Lynx, corn);
-        worker.feed(Lynx, beef);
-        worker.getVoice(Lynx);
-        Lynx.showSatiety();
+        herbivoreGroup.printAnimals();
+        carnivorousGroup.printAnimals();
 
-        Animal[] pond = { amur, duck } ;
-        for (Animal animal: pond) {
-            Swim swimAnimal = (Swim) animal;
-            swimAnimal.swim();
-        }
+        worker.feed(wolf, corn);
     }
 }

@@ -1,8 +1,19 @@
 package animals;
 
 import food.Food;
+import utils.EnclosureSize;
+import utils.WrongFoodException;
 
 public class Lynx extends Carnivorous implements Run, Swim, Voice {
+
+    public Lynx() {
+        super();
+    }
+
+    public Lynx(EnclosureSize rightEnclosureSize) {
+        this.rightEnclosureSize = rightEnclosureSize;
+    }
+
     @Override
     public void run() {
         System.out.println("Я рысь. Умею бегать!");
@@ -19,7 +30,12 @@ public class Lynx extends Carnivorous implements Run, Swim, Voice {
     }
 
     @Override
-    public void eat(Food food) {
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    @Override
+    public void eat(Food food) throws WrongFoodException {
         System.out.print("Я рысь. Мне дали " + food.toString() + ". ");
         super.eat(food);
     }

@@ -1,8 +1,18 @@
 package animals;
 
 import food.Food;
+import utils.EnclosureSize;
+import utils.WrongFoodException;
 
 public class Horse extends Herbivore implements Run, Swim, Voice {
+
+    public Horse() {
+        super();
+    }
+
+    public Horse(EnclosureSize rightEnclosureSize) {
+        this.rightEnclosureSize = rightEnclosureSize;
+    }
 
     @Override
     public void run() {
@@ -20,7 +30,12 @@ public class Horse extends Herbivore implements Run, Swim, Voice {
     }
 
     @Override
-    public void eat(Food food) {
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    @Override
+    public void eat(Food food) throws WrongFoodException {
         System.out.print("Я конь. Мне дали " + food.toString() + ". ");
         super.eat(food);
     }
